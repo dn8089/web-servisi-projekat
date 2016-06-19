@@ -1,0 +1,351 @@
+/* =Reset
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+ol, ul {
+	list-style: none;
+}
+:focus {
+	outline: 0;
+}
+a img {
+  border: none;
+}
+a:link, a:visited, a:active {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+input, textarea, select, button {
+  padding: 0;
+  border: none;
+  margin: 0;
+  background: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+
+/* =Styles
+-------------------------------------------------------------- */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: Tahoma, sans-serif;
+  font-weight: 400;
+  color: #000;
+  background: #fff;
+}
+.inner {
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+}
+section h1  {
+  font-size: 32px;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  margin-bottom: 36px;
+	text-transform: uppercase;
+}
+section h2  {
+  font-size: 24px;
+  border-bottom: 1px solid #000;
+  margin: 48px 0 32px;
+}
+section h3  {
+  font-size: 18px;
+  margin: 24px 0 16px;
+}
+#header {
+  height: 75px;
+  background: #000;
+}
+#header .logo {
+  float: left;
+  margin-top: 2px;
+}
+#header .nav {
+  position: relative;
+  float: left;
+  margin: 30px 0 0 30px;
+}
+#header .nav ul {
+  position: relative;
+  z-index: 5;
+}
+#header .nav li {
+  float: left;
+  margin: 0 4px;
+}
+#header .nav li a {
+  display: block;
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 10px;
+}
+#header .nav li a:hover {
+  color: #f5eb1a;
+}
+#header .btns {
+  float: right;
+  margin-top: 22px;
+}
+#header .btns li {
+  float: left;
+  margin-left: 20px;
+}
+#header .btns li:first-child {
+  margin-left: 0;
+}
+#header .btns li a {
+  display: block;
+  width: 32px;
+  height: 32px;
+  font-size: 0;
+  text-indent: -9999px;
+}
+#header .btns li.cart a {
+  background: url("../images/icon_cart.png") no-repeat 0 0;
+}
+#header .btns li.logout a {
+  background: url("../images/icon_logout.png") no-repeat 0 0;
+}
+#page {
+  position: relative;
+  height: auto !important;
+  min-height: 100%;
+}
+#cnt {
+  padding: 48px 0 96px;
+}
+#footer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  font-size: 11px;
+  color: #fff;
+  background: #000;
+  padding: 16px 0;
+}
+#footer  .copyright {
+  float: left;
+}
+#footer  .credits {
+  float: right;
+}
+.tsForm {
+  width: 512px;
+}
+.field {
+  margin: 32px 0 0;
+}
+.field input[type="text"],
+.field input[type="password"],
+.field textarea,
+.field select {
+  width: 100%;
+  font-size: 16px;
+  height: 32px;
+  line-height: 32px;
+  font-family: Tahoma, sans-serif;
+  font-weight: 400;
+  color: #000;
+  border: 1px solid #444;
+  background: #fff;
+  box-sizing: border-box;
+ -moz-box-sizing: border-box; 
+ -webkit-box-sizing: border-box;  
+ -ms-box-sizing: border-box;
+}
+.field input[type="text"],
+.field input[type="password"] {
+  padding: 4px 12px;
+}
+.field input[type="checkbox"] {
+ -webkit-appearance : checkbox;
+ -moz-appearance : checkbox;
+}
+.field select {
+  background: #fff url("../images/icon_arrow.png") no-repeat 98% center;
+}
+.field textarea {
+  position: relative;
+  height: 144px;
+  line-height: 18px;
+  padding: 16px 12px;
+  border: 1px solid #444;
+  border-radius: 1px;
+}
+.field label {
+  display: block;
+  line-height: 1;
+  font-size: 16px;
+  font-family: 'Tahoma', sans-serif;
+  font-weight: 400;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.field label small {
+  font-size: 10px;
+}
+.field .input {
+  position: relative;
+}
+.field .input label {
+  margin-left: 20px;
+}
+.field .input ul {
+  overflow:hidden;
+}
+.field .input li {
+  float: left;
+  margin-right: 16px;
+}
+.field .input input[type="radio"],
+.field .input input[type="checkbox"] {
+  float: left;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.field .help {
+  font-size: 12px;
+  font-style: italic;
+  color: #bbb;
+  margin-top: 4px;
+}
+.field .error {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 32px;
+  color: #fff;
+  text-indent: 12px;
+  background: #d00;
+  cursor: pointer;
+}
+.field.invalid .error {
+  display: block;
+}
+.field .errors.overlay {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  overflow: hidden;
+  font-size: 14px;
+  color: #fff;
+  padding: 0 10px;
+  background: #c00202;
+  z-index: 10;
+  cursor: pointer;
+  box-sizing: border-box;
+ -moz-box-sizing: border-box; 
+ -webkit-box-sizing: border-box;  
+ -ms-box-sizing: border-box;  
+}
+.field.invalid .errors.overlay {
+  display: block;
+  background: url("../images/icon_x_white.png") no-repeat right center;
+}
+.field.user {
+	margin: 0;
+}
+.field.user label {
+	display: inline;
+	text-transform: none;
+	padding-right: 8px;
+}
+.btn {
+  display: inline-block;
+  min-width: 128px;
+  line-height: 1;
+  font-size: 14px;
+  color: #000;  
+  text-align: center;
+  padding: 8px 24px;
+  border: 2px solid #000;
+  margin-top: 32px;
+  cursor: pointer;
+}
+.btn:hover {
+  color: #fbfc00;
+  background: #000;
+}
+.tsTable {
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;  
+  font-size: 16px;
+  font-weight: 300;
+  color: #000;
+}
+.tsTable  thead td {
+	text-transform : uppercase;
+}
+.tsTable td {
+  padding: 8px 12px;
+}
+.tsTable td.actions {
+  width: 128px;
+  font-size: 15px;
+  text-align: center;
+}
+.tsTable td.actions a {
+  margin: 0 4px;
+}
+.tsTable a:hover {
+  text-decoration: underline;
+}
+.tsTable thead {
+  font-size: 16px;
+  font-weight: 300;
+  color: #f5eb1a;
+  background: #000;
+}
+.tsTable tbody tr:nth-child(2n) {
+  background: #f4f4f4;
+}
+.tsTable tbody tr:first-child td {
+  padding-top: 16px;
+}
+.tsList li {
+	display: block;
+	margin-bottom: 8px;
+}
+.tsList .property {
+	display: inline-block;
+	width: 100px;
+  color: #f5eb1a;
+	font-weight: bold;
+	text-transform: uppercase;  
+}
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ticketing system</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="../bower_components/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript" src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="js/myApp.js"></script>
+</head>
+
+
+<body ng-app="app">
+  <div id="page">
+    <div id="header">
+      <div class="inner clearfix">
+        <div class="logo">
+          <a ui-sref="main"><img src="images/logo.png" /></a>
+        </div>  
+
+
+        <div class="nav">
+          <ul class="clearfix">
+            <li><a ui-sref="main">Projekti</a></li>
+            <li><a ui-sref="createProject">Kreiraj projekat</a></li>
+          </ul>
+        </div>
+        
+        
+        <div class="btns">
+          <ul class="clearfix">
+            <li class="logout"><a href="#">Odjava</a></li>
+          </ul>        
+        </div>
+      </div>
+    </div>
+ 
+  
+    <div id="cnt" ui-view>
+    </div>
+
+
+    <div id="footer">
+      <div class="inner">
+        <div class="copyright">&copy; Copyright 2016. All Rights Reserved.</div>
+        <div class="credits"><a>Created by Dragana Nestorov, Stefan Ćosić, Ognjen Ćosić, Nikola Mandić</a></div>
+      </div>  
+    </div>
+  </div>
+</body>
+</html>
+

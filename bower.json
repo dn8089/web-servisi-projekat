@@ -1,0 +1,11 @@
+{
+  "name": "ticketingSistem",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "^1.5.5",
+		"angular-resource": "^1.5.5",
+		"angular-ui-router": "^0.2.18"
+  },
+  "devDependencies": {},
+  "appPath": "client"
+}

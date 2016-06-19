@@ -1,0 +1,26 @@
+<section id="sec2" >
+	<div class="inner">
+		<h1>PRIJAVA</h1>
+		<form name="tsForm" class="tsForm" ng-submit="createUser()">		
+			<div class="field">
+				<label>E-Mail</label>
+				<div class="input">
+					<input type="text" name="email" ng-model="user.email" required />
+					<span ng-show="tsForm.email.$touched && tsForm.email.$invalid">E-mail je obavezno polje.</span>
+				</div>
+			</div>
+			
+			<div class="field">
+				<label>Šifra</label>
+				<div class="input">
+					<input type="password" name="pass" ng-model="user.pass" required />
+					<span ng-show="tsForm.pass.$touched && tsForm.pass.$invalid">Šifra je obavezno polje.</span>
+				</div>
+			</div>
+
+			<div class="btns">    
+				<button class="btn">PRIJAVA</button>
+			</div>
+		</form>
+	</div>
+</section>
