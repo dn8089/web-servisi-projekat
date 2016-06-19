@@ -1,0 +1,24 @@
+{
+  "name": "web-servisi-projekat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dn8089/web-servisi-projekat.git"
+  },
+  "author": "Dragana Nestorov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dn8089/web-servisi-projekat/issues"
+  },
+  "homepage": "https://github.com/dn8089/web-servisi-projekat#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.19"
+  }
+}
