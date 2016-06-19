@@ -1,6 +1,5 @@
 (function(angular) {
 
-//komentar
 	var usersController = function ($scope, $resource) {
 		var User = $resource('/api/users/');
 		$scope.users = User.query();
