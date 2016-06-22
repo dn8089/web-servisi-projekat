@@ -19,6 +19,7 @@ app.use('/api/users', userRouter);
 app.use('/api/projects', projectRouter);
 app.use('/ticketingSystem', express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/lib', express.static(__dirname + '/bower_components'));
 
 app.use(function(err, req, res, next) {
   var message = err.message;
