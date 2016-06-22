@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 
 var userRouter = require(__dirname + '/app/userRouter');
 var projectRouter = require(__dirname + '/app/projectRouter');
+var taskRouter = require(__dirname + '/app/taskRouter');
 
 mongoose.connect('mongodb://localhost/ticketingSystemApp');
 
@@ -17,6 +18,7 @@ var port = process.env.PORT || 8090;
 
 app.use('/api/users', userRouter);
 app.use('/api/projects', projectRouter);
+app.use('/api/tasks', taskRouter);
 app.use('/ticketingSystem', express.static(__dirname + '/client'));
 app.use('/lib', express.static(__dirname + '/bower_components'));
 
