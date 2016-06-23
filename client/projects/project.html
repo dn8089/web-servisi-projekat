@@ -67,7 +67,7 @@
 						<td>{{ task.task_priority }}</td>
 						<td class="actions">
 							<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
-							<a ng-click="deleteTask(task._id)">Izbriši</a>
+							<a ng-click="deleteTask(project._id, task._id)">Izbriši</a>
 						</td>
 					</tr>
 				</tbody>

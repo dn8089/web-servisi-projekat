@@ -1,11 +1,11 @@
 (function (angular) {
-	angular.module('project', ['project.resource', 'user.resource'])
+	angular.module('project', ['project.resource', 'user.resource', 'task.resource'])
 	.controller('projectsCtrl', function ($scope, Project) {
 		Project.query(function (projects) {
 			$scope.projects = projects;
 		});
 	})
-	.controller('projectCtrl', function ($scope, Project, $stateParams) {
+	.controller('projectCtrl', function ($scope, Project, Task, $stateParams) {
 		var projectId = $stateParams.id;
 		var loadProject = function() {
 			Project.get({_id:projectId}, function (project) {
@@ -18,8 +18,8 @@
 			$scope.project.$removeUser({proj_id:projectId, user_id:user_id}, loadProject);
 		};
 		
-		$scope.deleteTask = function (task_id) {
-			
+		$scope.deleteTask = function (project_id, task_id) {
+			Task.delete({proj_id:project_id, task_id:task_id}, loadProject);
 		};
 	})
 	.controller('createProjectCtrl', function ($scope, Project, $location) {
