@@ -58,15 +58,17 @@
 				
 				<tbody>
 					<tr ng-repeat="task in project.tasks">
-						<!--<td>{{ task._id}}</td>-->
-						<td>{{ task.task_label}}</td>
-						<td>{{ task.task_name}}</td>
-						<td>{{ task.task_description}}</td>
-						<td>{{ task.author.first_name + ' ' + task.author.last_name}}</td>
-						<td>{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name}}</td>
-						<td>{{ task.task_status}}</td>
-						<td>{{ task.task_priority}}</td>
-						<td class="actions"><a ng-click="deleteTask(task._id)">Izbriši</a></td>
+						<td>{{ task.task_label }}</td>
+						<td>{{ task.task_name }}</td>
+						<td>{{ task.task_description }}</td>
+						<td>{{ task.author.first_name + ' ' + task.author.last_name }}</td>
+						<td>{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</td>
+						<td>{{ task.task_status }}</td>
+						<td>{{ task.task_priority }}</td>
+						<td class="actions">
+							<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
+							<a ng-click="deleteTask(task._id)">Izbriši</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

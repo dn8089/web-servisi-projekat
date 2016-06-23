@@ -1,6 +1,13 @@
 (function (angular) {
 	angular.module('task', ['task.resource', 'project.resource'])
-	.controller('createTaskCtrl', function ($scope, Project, Task, $resource, $stateParams, $location) {
+	.controller('taskCtrl', function ($scope, Task, $stateParams) {
+		var projectId = $stateParams.id;
+		var taskId = $stateParams.task_id;
+		Task.get({proj_id:projectId, task_id:taskId}, function (task) {
+			$scope.task = task;
+		});
+	})
+	.controller('createTaskCtrl', function ($scope, Project, Task, $stateParams, $location) {
 		var projectId = $stateParams.id;
 		
 		Project.get({_id:projectId}, function (project) {

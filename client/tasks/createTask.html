@@ -22,7 +22,7 @@
 				<div class="input">
 					<select name="assignedTo" ng-model="task.assignedTo">
 						<option value=""></option>
-						<option value="{{ user._id }}" ng-repeat="user in project.team">{{ user.first_name + ' ' +usre.last_name}}</option>
+						<option value="{{ user._id }}" ng-repeat="user in project.team">{{ user.first_name + ' ' +user.last_name}}</option>
 					</select>
 					<span class="error">Obavezno polje</span>
 				</div>

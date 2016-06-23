@@ -62,25 +62,6 @@ projectRouter
 			}
 			res.json(project);
 		});
-	})
-	.post('/:proj_id/task', function (req, res, next) {
-		Project.findOne({
-			"_id": req.params.proj_id
-		}, function (err, project) {
-			if (err) {
-				return next(err);
-			} else if (!project) {
-				return res.json({message: 'Ne postoji projekat sa id-jem: ' + req.params.proj_id});
-			}
-			
-			var newTask = req.body;
-			project.tasks.push(newTask);
-			
-			project.save(function (err, project) {
-				if (err) return next(err);
-				res.json(project);
-			});
-		});
 	});
 	
 module.exports = projectRouter;

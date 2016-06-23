@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var commentSchema = new Schema();
+var commentSchema = new Schema({
+	
+});
 
 var taskSchema = new Schema({
 	task_label : {

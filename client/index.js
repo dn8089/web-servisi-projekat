@@ -35,6 +35,11 @@
 			templateUrl: 'tasks/createTask.html',
 			controller: 'createTaskCtrl'
 		})
+		.state('task', {
+			url: '/projects/:id/:task_id',
+			templateUrl: 'tasks/task.html',
+			controller: 'taskCtrl'
+		})
 		.state('createUser', {
 			url: '/registration',
 			templateUrl: 'users/createUser.html',
