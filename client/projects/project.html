@@ -13,7 +13,7 @@
 		</ul>
 		
 		<div class="btns">
-			<a class="btn" ui-sref="addUsers({id : project._id})">Dodaj člana tima</a>
+			<a class="btn" ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="addUsers({id : project._id})">Dodaj člana tima</a>
 			<a class="btn" ui-sref="createTask({id : project._id})">Kreiraj zadatak</a>
 		</div>
 		
@@ -34,7 +34,7 @@
 						<td>{{ user.first_name}}</td>
 						<td>{{ user.last_name}}</td>
 						<td>{{ user.email}}</td>
-						<td class="actions"><a ng-click="removeUser(user._id)">Izbriši</a></td>
+						<td class="actions"><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="removeUser(user._id)">Izbriši</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -68,6 +68,7 @@
 						<td class="actions">
 							<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
 							<a ng-click="deleteTask(project._id, task._id)">Izbriši</a>
+							<a ui-sref="editTask({id: project._id, task_id : task._id})">Modifikuj</a>
 						</td>
 					</tr>
 				</tbody>

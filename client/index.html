@@ -7,6 +7,9 @@
   <script type="text/javascript" src="../lib/angular/angular.js"></script>
   <script type="text/javascript" src="../lib/angular-resource/angular-resource.js"></script>
 	<script type="text/javascript" src="../lib/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../lib/ngstorage/ngStorage.js"></script>
+  <script type="text/javascript" src="../lib/angular-jwt/dist/angular-jwt.js"></script>
+	<script type="text/javascript" src="utils/authentication.js"></script>
 	<script type="text/javascript" src="users/userResource.js"></script>
 	<script type="text/javascript" src="users/user.js"></script>
   <script type="text/javascript" src="projects/projectResource.js"></script>
@@ -26,24 +29,28 @@
         </div>  
 
 
-        <div class="nav">
+        <div class="nav" ng-if="isLoggedIn()">
           <ul class="clearfix">
             <li><a ui-sref="main">Projekti</a></li>
-            <li><a ui-sref="createProject">Kreiraj projekat</a></li>
+            <li><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="createProject">Kreiraj projekat</a></li>
           </ul>
         </div>
         
         
-        <div class="btns">
+        <div class="btns" ng-if="isLoggedIn()">
           <ul class="clearfix">
-            <li class="logout"><a href="#">Odjava</a></li>
+            <li class="logout"><a ng-click="logout()">Odjava</a></li>
           </ul>        
         </div>
       </div>
     </div>
- 
-  
-    <div id="cnt" ui-view>
+		
+		<div class="btns" ng-if="!isLoggedIn()&&getCurrentState()!=='login'&&getCurrentState()!=='registration'">    
+			<a class="btn" ui-sref="login">PRIJAVA</a>
+		</div>
+
+    <div id="cnt" ng-if="isLoggedIn()||!isLoggedIn()&&(getCurrentState()=='login'||getCurrentState()=='registration')" ui-view>
+			
     </div>
 
 

@@ -6,8 +6,9 @@ var mongoose = require('mongoose');
 var userRouter = require(__dirname + '/app/userRouter');
 var projectRouter = require(__dirname + '/app/projectRouter');
 var taskRouter = require(__dirname + '/app/taskRouter');
+var config = require(__dirname+'/config/database'); // get db config file
 
-mongoose.connect('mongodb://localhost/ticketingSystemApp');
+mongoose.connect(config.database);
 
 app.use(bodyParser.urlencoded({
   extended: true

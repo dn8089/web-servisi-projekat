@@ -20,7 +20,10 @@ var taskSchema = new Schema({
 		ref: 'User',
 		required: true
 	},
-	assignedTo: { type: Schema.Types.ObjectId, ref: 'User' },
+	assignedTo: { 
+		type: Schema.Types.ObjectId, 
+		ref: 'User' 
+	},
 	task_status: {
 		type: String,
 		required: true

@@ -2,14 +2,18 @@ var express = require('express');
 var projectRouter = express.Router();
 var Project = require('../app/model/project');
 var User = require('../app/model/user');
+var passport  = require('passport');
+var config = require('../config/database'); // get db config file
+var jwt = require('jwt-simple');
+require('../config/passport')(passport);
 
 projectRouter
-	.get('/', function (req, res, next) {
+	.get('/', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.find({}, function (err, projects, next) {
       res.json(projects);
     });
 	})
-	.get('/:id', function(req, res, next) {
+	.get('/:id', passport.authenticate('jwt', { session: false}), function(req, res, next) {
 		Project.findOne({
 			"_id": req.params.id
 		}).populate('team').populate('tasks.author tasks.assignedTo').exec(function (err, project) {
@@ -17,14 +21,24 @@ projectRouter
 			res.json(project);
 		});
 	})
-	.post('/', function (req, res, next) {
+	.post('/', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+		var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    if(!decoded.role||decoded.role!=='admin'){
+      return res.status(403).send({success: false, msg: 'Not allowed.'});    
+    }
 		var project = new Project(req.body);
 		project.save(function (err, project) {
 			if (err) return next(err);
 			res.json(project);
 		});
 	})
-	.put('/:proj_id/addUser/:user_id', function (req, res, next) {
+	.put('/:proj_id/addUser/:user_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+		var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    if(!decoded.role||decoded.role!=='admin'){
+      return res.status(403).send({success: false, msg: 'Not allowed.'});    
+    }
 		User.findOne({
 			"_id": req.params.user_id
 		}, function (err, user) {
@@ -49,7 +63,12 @@ projectRouter
 			});
 		});
 	})
-	.put('/:proj_id/removeUser/:user_id', function (req, res, next) {
+	.put('/:proj_id/removeUser/:user_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+		var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    if(!decoded.role||decoded.role!=='admin'){
+      return res.status(403).send({success: false, msg: 'Not allowed.'});    
+    }
 		Project.findByIdAndUpdate({
 			"_id": req.params.proj_id
 		}, {
@@ -63,5 +82,18 @@ projectRouter
 			res.json(project);
 		});
 	});
+	
+var getToken = function (headers) {
+  if (headers && headers.authorization) {
+    var parted = headers.authorization.split(' ');
+    if (parted.length === 2) {
+      return parted[1];
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+};
 	
 module.exports = projectRouter;
