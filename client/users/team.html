@@ -1,0 +1,20 @@
+<h2>Tim</h2>
+<table class="tsTable">
+	<thead>
+		<tr>
+			<td class="first_name">Ime</td>
+			<td class="last_name">Prezime</td>
+			<td class="email">Email</td>
+			<td class="actions"></td>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr ng-repeat="user in project.team">
+			<td>{{ user.first_name}}</td>
+			<td>{{ user.last_name}}</td>
+			<td>{{ user.email}}</td>
+			<td class="actions"><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="removeUser(user._id)">Izbriši</a></td>
+		</tr>
+	</tbody>
+</table>

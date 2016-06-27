@@ -1,0 +1,32 @@
+<h2>Zadaci</h2>
+<table class="tsTable">
+	<thead>
+		<tr>
+			<td class="label">Oznaka</td>
+			<td class="name">Naziv</td>
+			<td class="description">Opis</td>
+			<td class="author">autor</td>
+			<td class="assignedTo">dodeljeno</td>
+			<td class="status">status</td>
+			<td class="priority">prioritet</td>
+			<td class="actions"></td>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr ng-repeat="task in project.tasks">
+			<td>{{ task.task_label }}</td>
+			<td>{{ task.task_name }}</td>
+			<td>{{ task.task_description }}</td>
+			<td>{{ task.author.first_name + ' ' + task.author.last_name }}</td>
+			<td>{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</td>
+			<td>{{ task.task_status }}</td>
+			<td>{{ task.task_priority }}</td>
+			<td class="actions">
+				<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
+				<a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="deleteTask(project._id, task._id)">Izbriši</a>
+				<a ui-sref="editTask({id: project._id, task_id : task._id})">Modifikuj</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

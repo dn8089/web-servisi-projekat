@@ -1,31 +1,37 @@
 <section>
-	<div class="inner">
-		<h1>{{ task.task_name }}</h1>
-		<ul class="tsList">
-			<li>
-				<span class="property">Oznaka:</span>
-				<span class="value">{{ task.task_label }}</span>
-			</li>
-			<li>
-				<span class="property">Opis:</span>
-				<span class="value">{{ task.task_description }}</span>
-			</li>
-			<li>
-				<span class="property">Autor:</span>
-				<span class="value">{{ task.author.first_name + ' ' + task.author.last_name }}</span>
-			</li>
-			<li>
-				<span class="property">Dodeljeno:</span>
-				<span class="value">{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</span>
-			</li>
-			<li>
-				<span class="property">Status:</span>
-				<span class="value">{{ task.task_status }}</span>
-			</li>
-			<li>
-				<span class="property">Prioritet:</span>
-				<span class="value">{{ task.task_priority }}</span>
-			</li>
-		</ul>
-	</div>
+	<h1>{{ task.task_name }}</h1>
+	<ul class="tsList">
+		<li>
+			<span class="property">Oznaka:</span>
+			<span class="value">{{ task.task_label }}</span>
+		</li>
+		<li>
+			<span class="property">Opis:</span>
+			<span class="value">{{ task.task_description }}</span>
+		</li>
+		<li>
+			<span class="property">Autor:</span>
+			<span class="value">{{ task.author.first_name + ' ' + task.author.last_name }}</span>
+		</li>
+		<li>
+			<span class="property">Dodeljeno:</span>
+			<span class="value">{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</span>
+		</li>
+		<li>
+			<span class="property">Status:</span>
+			<span class="value">{{ task.task_status }}</span>
+		</li>
+		<li>
+			<span class="property">Prioritet:</span>
+			<span class="value">{{ task.task_priority }}</span>
+		</li>
+	</ul>
+</section>
+
+<section id="comments" ng-if="task.comments && task.comments.length>0" ng-include="'comments/comments.html'">
+	
+</section>
+
+<section ng-include="'comments/createComment.html'">
+
 </section>

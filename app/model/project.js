@@ -2,7 +2,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
-	
+	signedBy: { 
+		type: Schema.Types.ObjectId, 
+		ref: 'User',
+		required: true
+	},
+  text: {
+    type: String,
+    required: true
+  },
+  createdAt: Date,
+  updatedAt: Date
 });
 
 var taskSchema = new Schema({

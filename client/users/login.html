@@ -1,26 +1,24 @@
-<section id="sec2" >
-	<div class="inner">
-		<h1>PRIJAVA</h1>
-		<form name="tsForm" class="tsForm" ng-submit="login()">		
-			<div class="field">
-				<label>E-Mail</label>
-				<div class="input">
-					<input type="text" name="email" ng-model="user.email" required />
-					<span ng-show="tsForm.email.$touched && tsForm.email.$invalid">E-mail je obavezno polje.</span>
-				</div>
+<section>
+	<h1>PRIJAVA</h1>
+	<form name="tsForm" class="tsForm" ng-submit="login()">		
+		<div class="field">
+			<label>E-Mail</label>
+			<div class="input">
+				<input type="text" name="email" ng-model="user.email" required />
+				<span ng-show="tsForm.email.$touched && tsForm.email.$invalid">E-mail je obavezno polje.</span>
 			</div>
-			
-			<div class="field">
-				<label>Šifra</label>
-				<div class="input">
-					<input type="password" name="password" ng-model="user.password" required />
-					<span ng-show="tsForm.password.$touched && tsForm.password.$invalid">Šifra je obavezno polje.</span>
-				</div>
+		</div>
+		
+		<div class="field">
+			<label>Šifra</label>
+			<div class="input">
+				<input type="password" name="password" ng-model="user.password" required />
+				<span ng-show="tsForm.password.$touched && tsForm.password.$invalid">Šifra je obavezno polje.</span>
 			</div>
+		</div>
 
-			<div class="btns">    
-				<button class="btn">PRIJAVA</button> <button class="btn" ui-sref="registration">REGISTRACIJA</button>
-			</div>
-		</form>
-	</div>
+		<div class="btns">    
+			<button class="btn">PRIJAVA</button> <button class="btn" ui-sref="registration">REGISTRACIJA</button>
+		</div>
+	</form>
 </section>

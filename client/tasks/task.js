@@ -1,11 +1,36 @@
 (function (angular) {
-	angular.module('task', ['task.resource', 'project.resource', 'authentication'])
-	.controller('taskCtrl', function ($scope, Task, $stateParams) {
+	angular.module('task', ['task.resource', 'project.resource', 'comment.resource', 'authentication'])
+	.controller('taskCtrl', function ($scope, Task, Comment, $stateParams, AuthenticationService) {
 		var projectId = $stateParams.id;
 		var taskId = $stateParams.task_id;
-		Task.get({proj_id:projectId, task_id:taskId}, function (task) {
-			$scope.task = task;
-		});
+		
+		var loadTask = function () {
+			Task.get({proj_id:projectId, task_id:taskId}, function (task) {
+				$scope.task = task;
+			});
+			$scope.comment = new Comment();
+		};
+		loadTask();
+		
+		$scope.saveComment = function () {
+			var commId = $scope.comment._id;
+			if (!commId) {
+				$scope.comment.signedBy = AuthenticationService.getCurrentUser().user_id;
+				$scope.comment.$save({task_id:taskId}, loadTask);
+			} else {
+				$scope.comment.$editComment({proj_id:projectId, task_id:taskId, comm_id:commId}, loadTask);
+			}
+		};
+		
+		$scope.deleteComment = function (commId) {
+			Comment.delete({proj_id:projectId, task_id:taskId, comm_id:commId}, loadTask);
+		};
+		
+		$scope.editComment = function (commId) {
+			Comment.get({proj_id:projectId, task_id:taskId, comm_id:commId}, function (comment) {
+				$scope.comment = comment;
+			})
+		};
 	})
 	.controller('createTaskCtrl', function ($scope, Project, Task, $stateParams, $location, AuthenticationService) {
 		var projectId = $stateParams.id;

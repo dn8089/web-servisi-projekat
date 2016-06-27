@@ -1,33 +1,31 @@
-<section id="sec2" >
-	<div class="inner">
-		<h1>NOVI Projekat</h1>
-		<form name="tsForm" class="tsForm" ng-submit="save()">
-			<div class="field">
-				<label>Oznaka</label>
-				<div class="input">
-					<input type="text" name="label" ng-model="project.label" required />
-					<span ng-show="tsForm.label.$touched && tsForm.label.$invalid">Oznaka je obavezno polje.</span>
-				</div>
+<section>
+	<h1>NOVI Projekat</h1>
+	<form name="tsForm" class="tsForm" ng-submit="save()">
+		<div class="field">
+			<label>Oznaka</label>
+			<div class="input">
+				<input type="text" name="label" ng-model="project.label" required />
+				<span ng-show="tsForm.label.$touched && tsForm.label.$invalid">Oznaka je obavezno polje.</span>
 			</div>
-			
-			<div class="field">
-				<label>Naziv</label>
-				<div class="input">
-					<input type="text" name="name" ng-model="project.name" required />
-					<span ng-show="tsForm.name.$touched && tsForm.name.$invalid">Naziv je obavezno polje.</span>
-				</div>
-			</div> 
-			
-			<div class="field">
-				<label>Opis</label>
-				<div class="input">
-					<textarea ng-model="project.description"></textarea>
-				</div>
-			</div> 
+		</div>
+		
+		<div class="field">
+			<label>Naziv</label>
+			<div class="input">
+				<input type="text" name="name" ng-model="project.name" required />
+				<span ng-show="tsForm.name.$touched && tsForm.name.$invalid">Naziv je obavezno polje.</span>
+			</div>
+		</div> 
+		
+		<div class="field">
+			<label>Opis</label>
+			<div class="input">
+				<textarea ng-model="project.description"></textarea>
+			</div>
+		</div> 
 
-			<div class="btns">    
-				<button class="btn">SAČUVAJ</button>
-			</div>
-		</form>
-	</div>
+		<div class="btns">    
+			<button class="btn">SAČUVAJ</button>
+		</div>
+	</form>
 </section>

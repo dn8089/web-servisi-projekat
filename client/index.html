@@ -16,6 +16,7 @@
   <script type="text/javascript" src="projects/project.js"></script>
 	<script type="text/javascript" src="tasks/taskResource.js"></script>
   <script type="text/javascript" src="tasks/task.js"></script>
+	<script type="text/javascript" src="comments/commentResource.js"></script>
   <script type="text/javascript" src="index.js"></script>
 </head>
 
@@ -49,8 +50,8 @@
 			<a class="btn" ui-sref="login">PRIJAVA</a>
 		</div>
 
-    <div id="cnt" ng-if="isLoggedIn()||!isLoggedIn()&&(getCurrentState()=='login'||getCurrentState()=='registration')" ui-view>
-			
+    <div id="cnt" ng-if="isLoggedIn()||!isLoggedIn()&&(getCurrentState()=='login'||getCurrentState()=='registration')">
+			<div class="inner" ui-view></div>
     </div>
 
 

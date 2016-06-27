@@ -2,13 +2,15 @@ var express = require('express');
 var taskRouter = express.Router();
 var Project = require('../app/model/project');
 var passport  = require('passport');
+var config = require('../config/database'); // get db config file
+var jwt = require('jwt-simple');
 require('../config/passport')(passport);
 
 taskRouter
 	.get('/:proj_id/:task_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
-		}).populate('tasks.author tasks.assignedTo').exec(function (err, project) {
+		}).populate('tasks.author tasks.assignedTo tasks.comments.signedBy').exec(function (err, project) {
 			if (err) {
 				return next(err);
 			} else if (!project) {
@@ -39,22 +41,26 @@ taskRouter
 		});
 	})
 	.delete('/:proj_id/:task_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+		var token = getToken(req.headers);
+    var decoded = jwt.decode(token, config.secret);
+    if(!decoded.role||decoded.role!=='admin'){
+      return res.status(403).send({success: false, msg: 'Not allowed.'});    
+    }
 		Project.findOne({
 			"_id": req.params.proj_id
 		}, function (err, project) {
-		 if (err) {
-			return next(err);
-		 } else if (!project) {
-			return res.json({message: 'Ne postoji projekat sa id-jem: ' + req.params.proj_id});
-		 }
+			if (err) {
+				return next(err);
+			} else if (!project) {
+				return res.json({message: 'Ne postoji projekat sa id-jem: ' + req.params.proj_id});
+			}
 		 
-		 var task = project.tasks.id(req.params.task_id).remove();
+			var task = project.tasks.id(req.params.task_id).remove();
 		 
-		 project.save(function (err, project) {
-			if (err) return next(err);
-			res.json(project);
-		 });
-		 
+			project.save(function (err, project) {
+				if (err) return next(err);
+				res.json(project);
+			});
 		});
 	})
 	.post('/:proj_id/:task_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
@@ -82,5 +88,18 @@ taskRouter
 			});
 		});
  });
+ 
+var getToken = function (headers) {
+  if (headers && headers.authorization) {
+    var parted = headers.authorization.split(' ');
+    if (parted.length === 2) {
+      return parted[1];
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+};
 	
 module.exports = taskRouter;

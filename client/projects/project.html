@@ -1,79 +1,26 @@
 <section>
-	<div class="inner">
-		<h1>{{ project.name }}</h1>
-		<ul class="tsList">
-			<li>
-				<span class="property">Oznaka:</span>
-				<span class="value">{{ project.label }}</span>
-			</li>
-			<li>
-				<span class="property">Opis:</span>
-				<span class="value">{{ project.description }}</span>
-			</li>
-		</ul>
-		
-		<div class="btns">
-			<a class="btn" ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="addUsers({id : project._id})">Dodaj člana tima</a>
-			<a class="btn" ui-sref="createTask({id : project._id})">Kreiraj zadatak</a>
-		</div>
-		
-		<section>
-			<h2>Tim</h2>
-			<table class="tsTable">
-				<thead>
-					<tr>
-						<td class="first_name">Ime</td>
-						<td class="last_name">Prezime</td>
-						<td class="email">Email</td>
-						<td class="actions"></td>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr ng-repeat="user in project.team">
-						<td>{{ user.first_name}}</td>
-						<td>{{ user.last_name}}</td>
-						<td>{{ user.email}}</td>
-						<td class="actions"><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="removeUser(user._id)">Izbriši</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
-		
-		<section>
-			<h2>Zadaci</h2>
-			<table class="tsTable">
-				<thead>
-					<tr>
-						<td class="label">Oznaka</td>
-						<td class="name">Naziv</td>
-						<td class="description">Opis</td>
-						<td class="author">autor</td>
-						<td class="assignedTo">dodeljeno</td>
-						<td class="status">status</td>
-						<td class="priority">prioritet</td>
-						<td class="actions"></td>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr ng-repeat="task in project.tasks">
-						<td>{{ task.task_label }}</td>
-						<td>{{ task.task_name }}</td>
-						<td>{{ task.task_description }}</td>
-						<td>{{ task.author.first_name + ' ' + task.author.last_name }}</td>
-						<td>{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</td>
-						<td>{{ task.task_status }}</td>
-						<td>{{ task.task_priority }}</td>
-						<td class="actions">
-							<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
-							<a ng-click="deleteTask(project._id, task._id)">Izbriši</a>
-							<a ui-sref="editTask({id: project._id, task_id : task._id})">Modifikuj</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
-		
+	<h1>{{ project.name }}</h1>
+	<ul class="tsList">
+		<li>
+			<span class="property">Oznaka:</span>
+			<span class="value">{{ project.label }}</span>
+		</li>
+		<li>
+			<span class="property">Opis:</span>
+			<span class="value">{{ project.description }}</span>
+		</li>
+	</ul>
+	
+	<div class="btns">
+		<a class="btn" ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="addUsers({id : project._id})">Dodaj člana tima</a>
+		<a class="btn" ui-sref="createTask({id : project._id})">Kreiraj zadatak</a>
 	</div>
+</section>
+		
+<section ng-if="project.team && project.team.length>0" ng-include="'users/team.html'">
+	
+</section>
+		
+<section ng-if="project.tasks && project.tasks.length>0" ng-include="'tasks/tasks.html'">
+	
 </section>

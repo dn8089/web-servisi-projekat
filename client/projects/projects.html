@@ -1,24 +1,22 @@
-<section id="sec1" >
-	<div class="inner">
-		<h1>Projekti</h1>
-		<table class="tsTable">
-			<thead>
-				<tr>
-					<td class="label">Oznaka</td>
-					<td class="name">Naziv</td>
-					<td class="description">Opis</td>
-					<td class="actions"></td>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr ng-repeat="project in projects">
-					<td>{{ project.label}}</td>
-					<td>{{ project.name }}</td>
-					<td>{{ project.description }}</td>
-					<td class="actions"><a ui-sref="project({id : project._id})">Detalji</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+<section>
+	<h1>Projekti</h1>
+	<table class="tsTable">
+		<thead>
+			<tr>
+				<td class="label">Oznaka</td>
+				<td class="name">Naziv</td>
+				<td class="description">Opis</td>
+				<td class="actions"></td>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr ng-repeat="project in projects">
+				<td>{{ project.label}}</td>
+				<td>{{ project.name }}</td>
+				<td>{{ project.description }}</td>
+				<td class="actions"><a ui-sref="project({id : project._id})">Detalji</a></td>
+			</tr>
+		</tbody>
+	</table>
 </section>

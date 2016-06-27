@@ -9,7 +9,11 @@ require('../config/passport')(passport);
 
 projectRouter
 	.get('/', passport.authenticate('jwt', { session: false}), function (req, res, next) {
-		Project.find({}, function (err, projects, next) {
+		var user_id = {};
+		if (req.query.id) {
+			user_id = {'team' :req.query.id};
+		}
+		Project.find(user_id, function (err, projects, next) {
       res.json(projects);
     });
 	})

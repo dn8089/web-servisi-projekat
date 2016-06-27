@@ -1,0 +1,13 @@
+<form name="tsForm" class="tsForm" ng-submit="saveComment()">
+	<div class="field">
+		<label>Komentar</label>
+		<div class="input">
+			<textarea name="text" ng-model="comment.text" required></textarea>
+			<span ng-show="tsForm.text.$touched && tsForm.text.$invalid">Niste uneli komentar.</span>
+		</div>
+	</div> 
+
+	<div class="btns">    
+		<button class="btn">SAČUVAJ</button>
+	</div>
+</form>

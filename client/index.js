@@ -84,6 +84,15 @@
 			}
 		}
 		
+		$rootScope.getCurrentUserId = function () {
+			if (!AuthenticationService.getCurrentUser()){
+				return undefined;
+			}
+			else{
+				return AuthenticationService.getCurrentUser().user_id;
+			}
+		}
+		
 		$rootScope.isLoggedIn = function () {
 			if (AuthenticationService.getCurrentUser()){
 				return true;

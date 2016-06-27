@@ -1,0 +1,11 @@
+<h2>Komentari</h2>
+<ul class="tsList" ng-repeat="comment in task.comments" >
+	<li>
+		{{ comment.text }} <br/>
+		<b>{{ comment.signedBy.first_name + ' ' + comment.signedBy.last_name }}</b> {{ comment.createdAt | date : 'dd MMM yyyy HH:mm' }}<br/>
+		<div class="btns">    
+			<a class="btn" ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin' || getCurrentUserId()==comment.signedBy._id" ng-click="editComment(comment._id)">IZMENI</a>
+			<a class="btn" ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin' || getCurrentUserId()==comment.signedBy._id" ng-click="deleteComment(comment._id)">IZBRIŠI</a>
+		</div>
+	</li>
+</ul>

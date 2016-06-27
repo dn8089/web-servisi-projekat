@@ -1,9 +1,17 @@
 (function (angular) {
-	angular.module('project', ['project.resource', 'user.resource', 'task.resource'])
-	.controller('projectsCtrl', function ($scope, Project) {
-		Project.query(function (projects) {
-			$scope.projects = projects;
-		});
+	angular.module('project', ['project.resource', 'user.resource', 'task.resource', 'authentication'])
+	.controller('projectsCtrl', function ($scope, Project, AuthenticationService) {
+		var currentUser = AuthenticationService.getCurrentUser();
+		
+		if (currentUser.role&&currentUser.role=='admin') {
+			Project.query(function (projects) {
+				$scope.projects = projects;
+			});
+		} else {
+			Project.query({id: currentUser.user_id}, function (projects) {
+				$scope.projects = projects;
+			});
+		}
 	})
 	.controller('projectCtrl', function ($scope, Project, Task, $stateParams) {
 		var projectId = $stateParams.id;
