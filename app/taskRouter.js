@@ -7,6 +7,26 @@ var jwt = require('jwt-simple');
 require('../config/passport')(passport);
 
 taskRouter
+	.get('/', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+		var userId = req.query.id;
+		var filter = {'tasks.assignedTo': userId};
+		var status = req.query.status;
+		var priority = req.query.priority;
+		
+		if (status && priority) {
+			filter = {'tasks.assignedTo': userId, 'tasks.task_status' : status, 'tasks.task_priority': priority};
+		} else if (status) {
+			filter = {'tasks.assignedTo': userId, 'tasks.task_status' : status};
+		} else if (priority) {
+			filter = {'tasks.assignedTo': userId, 'tasks.task_priority': priority};
+		}
+		
+		Project.find(filter, {'tasks': 1}).populate('tasks.author tasks.assignedTo tasks.comments.signedBy').exec(function (err, projects) {
+			if (err) return next(err);
+			
+			res.json(getTasks(userId, projects, status, priority));
+		});
+	})
 	.get('/:proj_id/:task_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
@@ -88,6 +108,52 @@ taskRouter
 			});
 		});
  });
+
+var getTasks = function (userId, projects, status, priority) {
+	var userTasks = [];
+	if (status && priority) {
+		projects.forEach(function (project) {
+			project.tasks.forEach(function (task) {
+				if (task.assignedTo && task.assignedTo._id == userId && task.task_status == status && task.task_priority == priority) {
+					var t = task.toObject();
+					t.proj_id = project._id;
+					userTasks.push(t);
+				} 
+			});
+		});
+	} else if (status) {
+		projects.forEach(function (project) {
+			project.tasks.forEach(function (task) {
+				if (task.assignedTo && task.assignedTo._id == userId && task.task_status == status) {
+					var t = task.toObject();
+					t.proj_id = project._id;
+					userTasks.push(t);
+				} 
+			});
+		});
+	} else if (priority) {
+		projects.forEach(function (project) {
+			project.tasks.forEach(function (task) {
+				if (task.assignedTo && task.assignedTo._id == userId && task.task_priority == priority) {
+					var t = task.toObject();
+					t.proj_id = project._id;
+					userTasks.push(t);
+				} 
+			});
+		});
+	} else {
+		projects.forEach(function (project) {
+			project.tasks.forEach(function (task) {
+				if (task.assignedTo && task.assignedTo._id == userId) {
+					var t = task.toObject();
+					t.proj_id = project._id;
+					userTasks.push(t);
+				} 
+			});
+		});
+	}
+	return userTasks;
+}
  
 var getToken = function (headers) {
   if (headers && headers.authorization) {

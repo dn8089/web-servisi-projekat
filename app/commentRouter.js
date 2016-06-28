@@ -5,7 +5,7 @@ var passport  = require('passport');
 require('../config/passport')(passport);
 
 commentRouter
-	.get('/:proj_id/:task_id/:comm_id', function (req, res, next) {
+	.get('/:proj_id/:task_id/:comm_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
 		}, function (err, project) {
@@ -39,7 +39,7 @@ commentRouter
 			});
 		});
 	})
-	.delete('/:proj_id/:task_id/:comm_id', function (req, res, next) {
+	.delete('/:proj_id/:task_id/:comm_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
 		}, function (err, project) {
@@ -58,7 +58,7 @@ commentRouter
 			});
 		});
 	})
-	.put('/:proj_id/:task_id/:comm_id', function (req, res, next) {
+	.put('/:proj_id/:task_id/:comm_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
 		}, function (err, project) {

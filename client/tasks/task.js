@@ -65,5 +65,33 @@
 				$location.path('/projects/'+projectId)
 			});
 		};
+	})
+	.controller('userTasksCtrl', function($scope, Task, AuthenticationService) {
+		var currentUser = AuthenticationService.getCurrentUser();
+		
+		var loadTasks = function () {
+			Task.query({id: currentUser.user_id}, function (tasks) {
+				$scope.project = {};
+				$scope.project.tasks = tasks;
+			});
+			
+			$scope.fil = {};
+		}
+		loadTasks();
+		
+		$scope.filter = function () {
+			if (!$scope.fil.status&&!$scope.fil.priority) {
+				loadTasks();
+			} else {
+				Task.query({id: currentUser.user_id, status: $scope.fil.status, priority: $scope.fil.priority}, function (tasks) {
+					$scope.project = {};
+					$scope.project.tasks = tasks;
+				});
+			}
+		}
+		
+		$scope.deleteTask = function (project_id, task_id) {
+			Task.delete({proj_id:project_id, task_id:task_id}, loadTasks);
+		};
 	});
 }(angular));

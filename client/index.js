@@ -6,8 +6,13 @@
 	function config ($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/main');
     $stateProvider
-    .state('main', {
+		.state('main', {
       url: '/main',
+      templateUrl: 'tasks/tasks.html',
+      controller: 'userTasksCtrl'
+    })
+    .state('projects', {
+      url: '/projects',
       templateUrl: 'projects/projects.html',
       controller: 'projectsCtrl'
     })

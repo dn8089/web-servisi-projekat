@@ -1,4 +1,39 @@
-<h2>Zadaci</h2>
+<section ng-if="getCurrentState()=='main'">
+	<h1>Zadaci</h1>
+	<form name="tsForm "class="tsForm filter" ng-submit="filter()">
+		<div class="field">
+			<label>Status</label>
+			<div class="input">
+				<select name="task_status" ng-model="fil.status">
+					<option value="">Svi</option>
+					<option value="To Do">To Do</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Verify">Verify</option>
+					<option value="Done">Done</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label>Prioritet</label>
+			<div class="input">
+				<select name="task_priority" ng-model="fil.priority">
+					<option value="">Svi</option>
+					<option value="Blocker">Blocker</option>
+					<option value="Critical">Critical</option>
+					<option value="Major">Major</option>
+					<option value="Minor">Minor</option>
+					<option value="Trivial">Trivial</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="btns">    
+			<button class="btn">FILTRIRAJ</button>
+		</div>
+	</form>
+</section>
+<h2 class="taskHeading" ng-if="getCurrentState()!='main'">Zadaci</h2>
 <table class="tsTable">
 	<thead>
 		<tr>
@@ -12,9 +47,9 @@
 			<td class="actions"></td>
 		</tr>
 	</thead>
-	
 	<tbody>
 		<tr ng-repeat="task in project.tasks">
+		{{task.proj_id}}
 			<td>{{ task.task_label }}</td>
 			<td>{{ task.task_name }}</td>
 			<td>{{ task.task_description }}</td>
@@ -22,10 +57,15 @@
 			<td>{{ task.assignedTo.first_name + ' ' + task.assignedTo.last_name }}</td>
 			<td>{{ task.task_status }}</td>
 			<td>{{ task.task_priority }}</td>
-			<td class="actions">
+			<td class="actions" ng-if="getCurrentState()!='main'">
 				<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
 				<a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="deleteTask(project._id, task._id)">Izbriši</a>
 				<a ui-sref="editTask({id: project._id, task_id : task._id})">Modifikuj</a>
+			</td>
+			<td class="actions" ng-if="getCurrentState()=='main'">
+				<a ui-sref="task({id : task.proj_id, task_id : task._id})">Detalji</a>
+				<a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="deleteTask(task.proj_id, task._id)">Izbriši</a>
+				<a ui-sref="editTask({id: task.proj_id, task_id : task._id})">Modifikuj</a>
 			</td>
 		</tr>
 	</tbody>
