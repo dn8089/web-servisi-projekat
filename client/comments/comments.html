@@ -1,5 +1,9 @@
-<h2>Komentari</h2>
-<ul class="tsList" ng-repeat="comment in task.comments" >
+<h2>
+	<span ng-if="showComments===false">+</span>
+	<span ng-if="showComments!==false">-</span>
+	<a ng-click="showCommentsFunc()">Komentari</a>
+</h2>
+<ul class="tsList" ng-show="showComments" ng-repeat="comment in task.comments" >
 	<li>
 		{{ comment.text }} <br/>
 		<b>{{ comment.signedBy.first_name + ' ' + comment.signedBy.last_name }}</b> {{ comment.createdAt | date : 'dd MMM yyyy HH:mm' }}<br/>

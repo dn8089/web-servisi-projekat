@@ -1,0 +1,28 @@
+<h2>
+	<span ng-if="showChanges===false">+</span>
+	<span ng-if="showChanges!==false">-</span>
+	<a ng-click="showChangesFunc()">IZMENE</a>
+</h2>
+
+<ul class="tsList changes" ng-show="showChanges" ng-repeat="change in task.changes | orderBy:'updatedAt'" >
+	<li ng-if="change.field==='task_name'">
+		<span class="field">Naziv: </span>
+		<span>{{ change.value }}, vreme izmene:  {{ change.updatedAt | date : 'dd MMM yyyy HH:mm' }}</span>
+	</li>
+	<li ng-if="change.field==='task_description'">
+		<span class="field">Opis: </span>
+		<span>{{ change.value }}, vreme izmene:  {{ change.updatedAt | date : 'dd MMM yyyy HH:mm' }}</span>
+	</li>
+	<li ng-if="change.field==='assignedTo'">
+		<span class="field">Dodeljeno: </span>
+		<span>{{ change.value }}, vreme izmene:  {{ change.updatedAt | date : 'dd MMM yyyy HH:mm' }}</span>
+	</li>
+	<li ng-if="change.field==='task_status'">
+		<span class="field">Status: </span>
+		<span>{{ change.value }}, vreme izmene:  {{ change.updatedAt | date : 'dd MMM yyyy HH:mm' }}</span>
+	</li>
+	<li ng-if="change.field==='task_priority'">
+		<span class="field">Prioritet: </span>
+		<span>{{ change.value }}, vreme izmene:  {{ change.updatedAt | date : 'dd MMM yyyy HH:mm' }}</span>
+	</li>
+</ul>

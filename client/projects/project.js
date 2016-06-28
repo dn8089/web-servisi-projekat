@@ -19,6 +19,10 @@
 			Project.get({_id:projectId}, function (project) {
 				$scope.project = project;
 			});
+			
+			$scope.orderBy = 'task_label';
+			$scope.showTeam = true;
+			$scope.showTasks = true;
 		};
 		loadProject();
 		
@@ -28,6 +32,14 @@
 		
 		$scope.deleteTask = function (project_id, task_id) {
 			Task.delete({proj_id:project_id, task_id:task_id}, loadProject);
+		};
+		
+		$scope.showTeamFunc = function () {
+			$scope.showTeam = !$scope.showTeam;
+		};
+		
+		$scope.showTaskFunc = function () {
+			$scope.showTasks = !$scope.showTasks;
 		};
 	})
 	.controller('createProjectCtrl', function ($scope, Project, $location) {

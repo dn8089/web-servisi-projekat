@@ -42,7 +42,8 @@ var taskSchema = new Schema({
 		type: String,
 		required: true
 	},
-	comments: [commentSchema]
+	comments: [commentSchema],
+	changes: [{field : String, value : String, updatedAt : Date}]
 });
 
 var projectSchema = new Schema({

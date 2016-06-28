@@ -1,10 +1,10 @@
 <section ng-if="getCurrentState()=='main'">
 	<h1>Zadaci</h1>
-	<form name="tsForm "class="tsForm filter" ng-submit="filter()">
+	<form name="tsForm "class="tsForm filter" ng-submit="filterFunc()">
 		<div class="field">
 			<label>Status</label>
 			<div class="input">
-				<select name="task_status" ng-model="fil.status">
+				<select name="task_status" ng-model="filter.status">
 					<option value="">Svi</option>
 					<option value="To Do">To Do</option>
 					<option value="In Progress">In Progress</option>
@@ -17,7 +17,7 @@
 		<div class="field">
 			<label>Prioritet</label>
 			<div class="input">
-				<select name="task_priority" ng-model="fil.priority">
+				<select name="task_priority" ng-model="filter.priority">
 					<option value="">Svi</option>
 					<option value="Blocker">Blocker</option>
 					<option value="Critical">Critical</option>
@@ -33,23 +33,26 @@
 		</div>
 	</form>
 </section>
-<h2 class="taskHeading" ng-if="getCurrentState()!='main'">Zadaci</h2>
-<table class="tsTable">
+<h2 class="taskHeading" ng-if="getCurrentState()!='main'">
+	<span ng-if="showTasks===false">+</span>
+	<span ng-if="showTasks!==false">-</span>
+	<a ng-click="showTaskFunc()">Zadaci</a>
+</h2>
+<table class="tsTable" ng-show="showTasks">
 	<thead>
 		<tr>
-			<td class="label">Oznaka</td>
+			<td class="label"><a ng-click="orderBy='task_label'">Oznaka</a></td>
 			<td class="name">Naziv</td>
 			<td class="description">Opis</td>
 			<td class="author">autor</td>
 			<td class="assignedTo">dodeljeno</td>
-			<td class="status">status</td>
-			<td class="priority">prioritet</td>
+			<td class="status"><a ng-click="orderBy='task_status'">status<a></td>
+			<td class="priority"><a ng-click="orderBy='task_priority'">prioritet</a></td>
 			<td class="actions"></td>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="task in project.tasks">
-		{{task.proj_id}}
+		<tr ng-repeat="task in project.tasks | orderBy:orderBy">
 			<td>{{ task.task_label }}</td>
 			<td>{{ task.task_name }}</td>
 			<td>{{ task.task_description }}</td>
@@ -60,12 +63,12 @@
 			<td class="actions" ng-if="getCurrentState()!='main'">
 				<a ui-sref="task({id : project._id, task_id : task._id})">Detalji</a>
 				<a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="deleteTask(project._id, task._id)">Izbriši</a>
-				<a ui-sref="editTask({id: project._id, task_id : task._id})">Modifikuj</a>
+				<a ui-sref="editTask({id: project._id, task_id : task._id})">Izmeni</a>
 			</td>
 			<td class="actions" ng-if="getCurrentState()=='main'">
 				<a ui-sref="task({id : task.proj_id, task_id : task._id})">Detalji</a>
 				<a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ng-click="deleteTask(task.proj_id, task._id)">Izbriši</a>
-				<a ui-sref="editTask({id: task.proj_id, task_id : task._id})">Modifikuj</a>
+				<a ui-sref="editTask({id: task.proj_id, task_id : task._id})">Izmeni</a>
 			</td>
 		</tr>
 	</tbody>

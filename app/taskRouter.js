@@ -1,5 +1,6 @@
 var express = require('express');
 var taskRouter = express.Router();
+var mongoose = require('mongoose');
 var Project = require('../app/model/project');
 var passport  = require('passport');
 var config = require('../config/database'); // get db config file
@@ -86,29 +87,61 @@ taskRouter
 	.post('/:proj_id/:task_id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 		Project.findOne({
 			"_id": req.params.proj_id
-		}, function (err, project) {
+		}).populate('tasks.assignedTo').exec(function (err, project) {
 			if (err) {
 				return next(err);
 			} else if (!project) {
 				return res.json({message: 'Ne postoji projekat sa id-jem: ' + req.params.proj_id});
 			}
 			
+			
 			var task = project.tasks.id(req.params.task_id);
-
 			var newTask = req.body;
+			task.changes = getChanges(newTask, task);
 			task.task_name = newTask.task_name;
 			task.task_status = newTask.task_status;
 			task.task_priority = newTask.task_priority;
 			task.task_description = newTask.task_description;
-			task.assignedTo = newTask.assignedTo;
-
+			
+			if (newTask.assignedTo === '') {
+				task.assignedTo = undefined;
+			} else {
+				task.assignedTo = newTask.assignedTo;
+			}
+			
 			project.save(function (err, project) {
 				if (err) return next(err);
-				res.json(project);
+				res.json({message: 'Zadatak sa id-jem: ' + req.params.task_id + ' je izmenjan.'});
 			});
 		});
  });
-
+	
+var getChanges = function (newTask, task) {
+	for (var field in newTask) {
+		var t = task.toObject();
+		var change = {};
+		
+		if (t.hasOwnProperty(field) && t[field] !== newTask[field] 
+			&& field !== '_id' && field !== 'task_label' && field !== 'author'
+			&& field !== 'comments' && field !== 'changes' && field !== 'assignedTo') {
+			change.field = field;
+			change.value = t[field];
+			change.updatedAt = new Date();
+			task.changes.push(change);
+		} else if (field === 'assignedTo' && t.hasOwnProperty(field)) {
+			var assignedToId = t[field]._id.toString();
+			
+			if (assignedToId !== newTask[field]) {
+				change.field = field;
+				change.value = t[field].first_name + ' ' + t[field].last_name;
+				change.updatedAt = new Date();
+				task.changes.push(change);
+			}
+		}
+	}
+	return task.changes;
+}
+	
 var getTasks = function (userId, projects, status, priority) {
 	var userTasks = [];
 	if (status && priority) {

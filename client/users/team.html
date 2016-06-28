@@ -1,5 +1,9 @@
-<h2>Tim</h2>
-<table class="tsTable">
+<h2>
+	<span ng-if="showTeam===false">+</span>
+	<span ng-if="showTeam!==false">-</span>
+	<a ng-click="showTeamFunc()">Tim</a>
+</h2>
+<table class="tsTable" ng-show="showTeam">
 	<thead>
 		<tr>
 			<td class="first_name">Ime</td>
@@ -10,7 +14,7 @@
 	</thead>
 	
 	<tbody>
-		<tr ng-repeat="user in project.team">
+		<tr ng-repeat="user in project.team | orderBy:'first_name'">
 			<td>{{ user.first_name}}</td>
 			<td>{{ user.last_name}}</td>
 			<td>{{ user.email}}</td>

@@ -26,6 +26,15 @@
 			<span class="value">{{ task.task_priority }}</span>
 		</li>
 	</ul>
+	<div class="btns">
+		<a class="btn" ui-sref="editTask({id: projectId, task_id : task._id})">Izmeni</a>
+		<a class="btn" ui-sref="project({id: projectId})">Povratak na Projekat</a>
+	</div>
+	
+</section>
+
+<section ng-if="task.changes&&task.changes.length>0" ng-include="'tasks/taskChanges.html'">
+	
 </section>
 
 <section id="comments" ng-if="task.comments && task.comments.length>0" ng-include="'comments/comments.html'">

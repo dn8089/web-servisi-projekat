@@ -3,11 +3,15 @@
 	.controller('taskCtrl', function ($scope, Task, Comment, $stateParams, AuthenticationService) {
 		var projectId = $stateParams.id;
 		var taskId = $stateParams.task_id;
+		$scope.projectId = projectId;
 		
 		var loadTask = function () {
 			Task.get({proj_id:projectId, task_id:taskId}, function (task) {
 				$scope.task = task;
 			});
+			
+			$scope.showChanges = false;
+			$scope.showComments = true;
 			$scope.comment = new Comment();
 		};
 		loadTask();
@@ -30,6 +34,14 @@
 			Comment.get({proj_id:projectId, task_id:taskId, comm_id:commId}, function (comment) {
 				$scope.comment = comment;
 			})
+		};
+		
+		$scope.showChangesFunc = function () {
+			$scope.showChanges = !$scope.showChanges;
+		};
+		
+		$scope.showCommentsFunc = function () {
+			$scope.showComments = !$scope.showComments;
 		};
 	})
 	.controller('createTaskCtrl', function ($scope, Project, Task, $stateParams, $location, AuthenticationService) {
@@ -58,11 +70,14 @@
 		
 		Task.get({proj_id:projectId, task_id:taskId}, function (task) {
 			$scope.task = task;
+			if (task.assignedTo) {
+				$scope.task.assignedTo = task.assignedTo._id;
+			}
 		});
  
 		$scope.saveTask = function () {
 			$scope.task.$save({proj_id:projectId, task_id:taskId}, function () {
-				$location.path('/projects/'+projectId)
+				$location.path('/projects/' + projectId + '/' + taskId);
 			});
 		};
 	})
@@ -75,15 +90,17 @@
 				$scope.project.tasks = tasks;
 			});
 			
-			$scope.fil = {};
+			$scope.orderBy = 'task_label';
+			$scope.showTasks = true;
+			$scope.filter = {};
 		}
 		loadTasks();
 		
-		$scope.filter = function () {
-			if (!$scope.fil.status&&!$scope.fil.priority) {
+		$scope.filterFunc = function () {
+			if (!$scope.filter.status&&!$scope.filter.priority) {
 				loadTasks();
 			} else {
-				Task.query({id: currentUser.user_id, status: $scope.fil.status, priority: $scope.fil.priority}, function (tasks) {
+				Task.query({id: currentUser.user_id, status: $scope.filter.status, priority: $scope.filter.priority}, function (tasks) {
 					$scope.project = {};
 					$scope.project.tasks = tasks;
 				});

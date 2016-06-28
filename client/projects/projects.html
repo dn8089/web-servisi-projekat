@@ -11,7 +11,7 @@
 		</thead>
 		
 		<tbody>
-			<tr ng-repeat="project in projects">
+			<tr ng-repeat="project in projects | orderBy:'label'">
 				<td>{{ project.label}}</td>
 				<td>{{ project.name }}</td>
 				<td>{{ project.description }}</td>

@@ -1,5 +1,6 @@
 <section>
-	<h1>NOVI zadatak</h1>
+	<h1 ng-if="getCurrentState()=='createTask'">NOVI zadatak</h1>
+	<h1 ng-if="getCurrentState()=='editTask'">Izmeni zadatak</h1>
 	<form name="tsForm "class="tsForm" ng-submit="saveTask()">
 		<div class="field">
 			<label>Naziv</label>
@@ -21,7 +22,7 @@
 			<div class="input">
 				<select name="assignedTo" ng-model="task.assignedTo">
 					<option value=""></option>
-					<option value="{{ user._id }}" ng-repeat="user in project.team">{{ user.first_name + ' ' +user.last_name}}</option>
+					<option value="{{ user._id }}" ng-repeat="user in project.team">{{ user.first_name + ' ' + user.last_name}}</option>
 				</select>
 				<span class="error">Obavezno polje</span>
 			</div>
