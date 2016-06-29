@@ -7,6 +7,7 @@ var userRouter = require(__dirname + '/app/userRouter');
 var projectRouter = require(__dirname + '/app/projectRouter');
 var taskRouter = require(__dirname + '/app/taskRouter');
 var commentRouter = require(__dirname + '/app/commentRouter');
+var reportRouter = require(__dirname + '/app/reportRouter');
 var config = require(__dirname+'/config/database'); // get db config file
 
 mongoose.connect(config.database);
@@ -22,6 +23,7 @@ app.use('/api/users', userRouter);
 app.use('/api/projects', projectRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/reports', reportRouter);
 app.use('/ticketingSystem', express.static(__dirname + '/client'));
 app.use('/lib', express.static(__dirname + '/bower_components'));
 

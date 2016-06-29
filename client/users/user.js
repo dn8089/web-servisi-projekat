@@ -11,6 +11,7 @@
 	})
 	.controller('loginCtrl', function ($scope, $log, AuthenticationService) {
 		$scope.user = {};
+		$scope.failure = false;
 		$scope.login = function () {
 			AuthenticationService.login($scope.user.email, $scope.user.password, loginCbck);
 		};
@@ -21,6 +22,7 @@
 			}
 			else{
 				$log.info('failure!');
+				$scope.failure = true;
 			}
 		}
 	});

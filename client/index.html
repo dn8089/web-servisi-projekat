@@ -9,6 +9,8 @@
 	<script type="text/javascript" src="../lib/angular-ui-router/release/angular-ui-router.js"></script>
 	<script type="text/javascript" src="../lib/ngstorage/ngStorage.js"></script>
   <script type="text/javascript" src="../lib/angular-jwt/dist/angular-jwt.js"></script>
+	<script type="text/javascript" src="../lib/Chart.js/dist/Chart.min.js"></script>
+  <script type="text/javascript" src="../lib/angular-chart.js/angular-chart.min.js"></script>
 	<script type="text/javascript" src="utils/authentication.js"></script>
 	<script type="text/javascript" src="users/userResource.js"></script>
 	<script type="text/javascript" src="users/user.js"></script>
@@ -17,6 +19,8 @@
 	<script type="text/javascript" src="tasks/taskResource.js"></script>
   <script type="text/javascript" src="tasks/task.js"></script>
 	<script type="text/javascript" src="comments/commentResource.js"></script>
+	<script type="text/javascript" src="reports/reportResource.js"></script>
+	<script type="text/javascript" src="reports/report.js"></script>
   <script type="text/javascript" src="index.js"></script>
 </head>
 
@@ -35,6 +39,7 @@
 						<li><a ui-sref="main">Zadaci</a></li>
             <li><a ui-sref="projects">Projekti</a></li>
             <li><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="createProject">Kreiraj projekat</a></li>
+            <li><a ng-if="getCurrentUserRole()&&getCurrentUserRole()=='admin'" ui-sref="reports">Izveštaji</a></li>
           </ul>
         </div>
         

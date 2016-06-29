@@ -1,5 +1,5 @@
 (function(angular) {
-	var app = angular.module("app", ['user', 'project', 'task', 'ui.router']);
+	var app = angular.module("app", ['user', 'project', 'task', 'report', 'ui.router', 'chart.js']);
 	
 	app.config(config).run(run);
 	
@@ -55,6 +55,11 @@
 			url: '/login',
 			templateUrl: 'users/login.html',
 			controller: 'loginCtrl'
+		})
+		.state('reports', {
+			url: '/reports',
+			templateUrl: 'reports/reports.html',
+			controller: 'reportsCtrl'
 		});
 	};
 	
@@ -67,13 +72,13 @@
 		// ukoliko pokušamo da odemo na stranicu za koju nemamo prava, redirektujemo se na login
 		$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 			// lista javnih stanja
-			/*var publicStates = ['login', 'registration', 'main', 'project', ''];
+			var publicStates = ['login', 'registration', 'main', 'projects', 'project', 'createTask', 'editTask', 'task', ''];
 			var restrictedState = publicStates.indexOf(toState.name) === -1;
 			if(restrictedState && !AuthenticationService.getCurrentUser()){
 				$state.go('login');
-			} else if (restrictedState) {
+			} else if (restrictedState && AuthenticationService.getCurrentUser().role !== 'admin') {
 				$state.go('main');
-			}*/
+			}
 		});
 		
 		$rootScope.logout = function () {

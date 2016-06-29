@@ -1,0 +1,39 @@
+<section>
+	<h1>Izveštaji</h1>
+	<form name="tsForm "class="tsForm" ng-submit="reportFunc()">
+		<div class="field">
+			<label>Projekat</label>
+			<div class="input">
+				<select name="project" ng-model="reportOpt.projectId">
+					<option value="{{ project._id }}" ng-repeat="project in projects | orderBy: 'name'">{{ project.name }}</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label>Izveštaj</label>
+			<div class="input">
+				<select name="reportType" ng-model="reportOpt.reportType">
+					<option value="reportOne">Zadaci dodeljeni korisnicima</option>
+					<option value="reportTwo">Završeni zadaci</option>
+					<!--<option value="reportThree">Dinamika kreiranja zadataka na projektu</option>
+					<option value="reportFour">Dinamika završavanja zadataka na projektu</option>
+					<option value="reportFive">Aktivnost korisnika na projektu</option>-->
+				</select>
+			</div>
+		</div>
+		
+		<div class="btns">    
+			<button class="btn">Prikaži izveštaj</button>
+		</div>
+	</form>
+</section>
+<section>
+	<h2 ng-if="report&&!report.tasksNum">Ne postoje zadaci za izabrani projekat</h2>
+</section>
+<section ng-if="report&&report.tasksNum>0">
+	<h2>{{ report.title }}</h2>
+	<canvas id="bar" class="chart chart-bar"
+		chart-data="report.data" chart-labels="report.labels">
+	</canvas>
+</section>

@@ -6,6 +6,7 @@
 			<div class="input">
 				<input type="text" name="label" ng-model="project.label" required />
 				<span ng-show="tsForm.label.$touched && tsForm.label.$invalid">Oznaka je obavezno polje.</span>
+				<span ng-show="unique">Oznaka mora biti jedinstvena.</span>
 			</div>
 		</div>
 		
